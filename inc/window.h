@@ -10,7 +10,7 @@ public:
   Window(const std::string &title, int width, int height);
   ~Window();
 
-  // To disble copy operator and assignment
+  // the following code disables copy operator
   Window(const Window &) = delete;
   Window &operator=(const Window &) = delete;
 
