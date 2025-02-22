@@ -7,7 +7,7 @@ int main(int argc, char* argv[]) {
 
     SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL3
 
-    // Create an application window with the following settings:
+    // creating an application window .
     window = SDL_CreateWindow(
         "An SDL3 window",                  // window title
         640,                               // width, in pixels
@@ -22,6 +22,8 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+// this is working code
+
     while (!done) {
         SDL_Event event;
 
@@ -31,7 +33,7 @@ int main(int argc, char* argv[]) {
             }
         }
 
-        // Do game logic, present a frame, etc.
+        // this is doing game logic and present frame etc...
     }
 
     // Close and destroy the window
