@@ -10,24 +10,24 @@ FileHandler::FileHandler(const std::string &directory)
 }
 
 FileHandler::~FileHandler() {
-    cleanup();  // Make sure cleanup() is also implemented
+    cleanup();  
 }
 void FileHandler::initializeDirectory() {
   namespace fs = std::filesystem;
 
-  // Create directory if it doesn't exist
+ // Establish the directory if it does not already exist.
   if (!fs::exists(m_directory)) {
     fs::create_directories(m_directory);
   }
 
-  // Clear existing files
+  // it clears the existing files
   for (const auto &entry : fs::directory_iterator(m_directory)) {
     fs::remove(entry.path());
   }
 }
 
 
-// src/communication/file_handler.cpp
+// src/network/file_handler.cpp
 void FileHandler::writeVehicleData(const Vehicle& vehicle) {
     std::string fileName = getLaneFileName(vehicle.getLane());
     std::string fullPath = m_directory + "/" + fileName;
@@ -42,9 +42,9 @@ void FileHandler::writeVehicleData(const Vehicle& vehicle) {
 }
 
 
-// src/communication/file_handler.cpp
+// src/network/file_handler.cpp
 
-// Add this implementation to your existing file_handler.cpp
+// Incorporate this implementation into your current file_handler.cpp.
 void FileHandler::cleanup() {
     // This method should clean up any files created during operation
     namespace fs = std::filesystem;

@@ -1,4 +1,4 @@
-// file_handler.h
+
 #ifndef FILE_HANDLER_H
 #define FILE_HANDLER_H
 
@@ -27,4 +27,4 @@ private:
   void cleanup();
 };
 
-#endif // FILE_HANDLER_H
+#endif 
