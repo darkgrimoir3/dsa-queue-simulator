@@ -2,7 +2,8 @@
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_video.h"
 #include <stdexcept>
-#include <window.h>
+#include"window.h"
+
 
 Window::Window(const std::string& title, int width, int height) {
   m_window = SDL_CreateWindow(title.c_str(), width, height, SDL_WINDOW_RESIZABLE);
@@ -25,14 +26,17 @@ Window::Window(const std::string& title, int width, int height) {
 
 
 void Window::clear() const {
+
+
   SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
+  // Clear the current rendering target with the drawing color.
+
   SDL_RenderClear(m_renderer);
 }
 
 void Window::present() const {
+
+
+  // Update the screen with any rendering performed since the previous call.
   SDL_RenderPresent(m_renderer);
 }
-
-
-
-
