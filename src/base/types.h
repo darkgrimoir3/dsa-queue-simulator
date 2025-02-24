@@ -1,21 +1,26 @@
-// src/base/types.h
-#ifndef TYPES_H
-#define TYPES_H
+// src/common/types.h
+#pragma once
+#include <cstdint>
+#include <string>
 
-// Lane identification
 enum class LaneId {
-    AL1_INCOMING, AL2_PRIORITY, AL3_FREELANE,
-    BL1_INCOMING, BL2_PRIORITY, BL3_FREELANE,
-    CL1_INCOMING, CL2_PRIORITY, CL3_FREELANE,
-    DL1_INCOMING, DL2_PRIORITY, DL3_FREELANE
+    AL1_INCOMING,
+    AL2_PRIORITY,
+    AL3_FREELANE,
+    BL1_INCOMING,
+    BL2_NORMAL,
+    BL3_FREELANE,
+    CL1_INCOMING,
+    CL2_NORMAL,
+    CL3_FREELANE,
+    DL1_INCOMING,
+    DL2_NORMAL,
+    DL3_FREELANE
 };
 
-// Direction enum for vehicle movement
-enum class Direction {
-    NORTH,
-    SOUTH,
-    EAST,
-    WEST
+enum class LightState {
+    RED,
+    GREEN
 };
 
-#endif // TYPES_H
+;
