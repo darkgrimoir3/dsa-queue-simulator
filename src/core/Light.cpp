@@ -1,8 +1,7 @@
-
-#include "core/TrafficLight.h"
+#include "Headers/Light.h"
 #include <cmath>
 
-TrafficLight::TrafficLight()
+Light::Light()
     : state(LightState::RED)
     , nextState(LightState::RED)
     , transitionProgress(0.0f)
@@ -15,7 +14,7 @@ TrafficLight::TrafficLight()
 {
 }
 
-void TrafficLight::update(float deltaTime) {
+void Light::update(float deltaTime) {
     // Don't update if state is being forced
     if (isForced) {
         return;
@@ -41,13 +40,13 @@ void TrafficLight::update(float deltaTime) {
     }
 }
 
-void TrafficLight::setState(LightState newState) {
+void Light::setState(LightState newState) {
     if (state != newState && !isTransitioning) {
         startTransition(newState);
     }
 }
 
-void TrafficLight::forceState(LightState newState, bool force) {
+void Light::forceState(LightState newState, bool force) {
     isForced = force;
     if (force) {
         state = newState;
@@ -61,34 +60,34 @@ void TrafficLight::forceState(LightState newState, bool force) {
     }
 }
 
-void TrafficLight::setPriorityMode(bool enabled) {
+void Light::setPriorityMode(bool enabled) {
     isPriorityMode = enabled;
     // Adjust timings when priority mode changes
     currentStateDuration = getStateDuration();
 }
 
-float TrafficLight::getStateDuration() const {
+float Light::getStateDuration() const {
     if (isPriorityMode) {
         return (state == LightState::GREEN) ? 40.0f : 20.0f;  // Longer green in priority
     }
     return (state == LightState::GREEN) ? 30.0f : 30.0f;  // Equal in normal mode
 }
 
-float TrafficLight::getNextStateDuration() const {
+float Light::getNextStateDuration() const {
     if (isPriorityMode) {
         return (nextState == LightState::GREEN) ? 40.0f : 20.0f;
     }
     return 30.0f;
 }
 
-void TrafficLight::startTransition(LightState newState) {
+void Light::startTransition(LightState newState) {
     nextState = newState;
     isTransitioning = true;
     transitionProgress = 0.0f;
     stateTimer = 0.0f;
 }
 
-void TrafficLight::render(SDL_Renderer* renderer, float x, float y) const {
+void Light::render(SDL_Renderer* renderer, float x, float y) const {
     // Constants for rendering
     const float LIGHT_SIZE = 30.0f;
     const float HOUSING_PADDING = 5.0f;

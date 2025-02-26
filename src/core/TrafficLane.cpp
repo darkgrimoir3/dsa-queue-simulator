@@ -1,8 +1,8 @@
-// src/core/Lane.cpp
-#include "core/Lane.h"
+// src/core/TrafficLane.cpp
+#include "core/TrafficLane.h"
 #include <filesystem>
 
-Lane::Lane(LaneId id, bool isPriority)
+TrafficLane::TrafficLane(LaneId id, bool isPriority)
     : id(id), isPriority(isPriority) {
     // Set up data file path based on lane ID
     std::string lanePrefix;
@@ -17,7 +17,7 @@ Lane::Lane(LaneId id, bool isPriority)
 }
 
 
-Direction Lane::getVehicleDirection(size_t index) const {
+Direction TrafficLane::getVehicleDirection(size_t index) const {
     if (index >= vehicleQueue.getSize()) {
         return Direction::STRAIGHT;  // Default direction
     }
@@ -28,32 +28,32 @@ Direction Lane::getVehicleDirection(size_t index) const {
     return vehicle ? vehicle->getDirection() : Direction::STRAIGHT;
 }
 
-void Lane::addVehicle(std::shared_ptr<Vehicle> vehicle) {
+void TrafficLane::addVehicle(std::shared_ptr<Vehicle> vehicle) {
     vehicleQueue.enqueue(vehicle);
 }
 
-std::shared_ptr<Vehicle> Lane::removeVehicle() {
+std::shared_ptr<Vehicle> TrafficLane::removeVehicle() {
     if (vehicleQueue.isEmpty()) return nullptr;
     return vehicleQueue.dequeue();
 }
 
-size_t Lane::getQueueSize() const {
+size_t TrafficLane::getQueueSize() const {
     return vehicleQueue.getSize();
 }
 
-bool Lane::isPriorityLane() const {
+bool TrafficLane::isPriorityLane() const {
     return isPriority;
 }
 
-LaneId Lane::getId() const {
+LaneId TrafficLane::getId() const {
     return id;
 }
 
-const std::string& Lane::getDataFile() const {
+const std::string& TrafficLane::getDataFile() const {
     return dataFile;
 }
 
-void Lane::update() {
+void TrafficLane::update() {
     // Update logic for free lanes
     if (id == LaneId::AL3_FREELANE ||
         id == LaneId::BL3_FREELANE ||
