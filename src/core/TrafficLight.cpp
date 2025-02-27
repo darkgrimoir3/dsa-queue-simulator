@@ -1,20 +1,22 @@
-#include "Headers/Light.h"
+
+#include "Headers/TrafficLight.h"
 #include <cmath>
 
-Light::Light()
+TrafficLight::TrafficLight(LaneId lane)
     : state(LightState::RED)
     , nextState(LightState::RED)
     , transitionProgress(0.0f)
     , transitionDuration(1.0f)
     , stateTimer(0.0f)
     , isTransitioning(false)
-    , currentStateDuration(30.0f)  // Default duration
+    , currentStateDuration(15.0f)  // Default duration for normal mode
     , isPriorityMode(false)
     , isForced(false)
+    , controlledLane(lane)
 {
 }
 
-void Light::update(float deltaTime) {
+void TrafficLight::update(float deltaTime) {
     // Don't update if state is being forced
     if (isForced) {
         return;
@@ -40,13 +42,13 @@ void Light::update(float deltaTime) {
     }
 }
 
-void Light::setState(LightState newState) {
+void TrafficLight::setState(LightState newState) {
     if (state != newState && !isTransitioning) {
         startTransition(newState);
     }
 }
 
-void Light::forceState(LightState newState, bool force) {
+void TrafficLight::forceState(LightState newState, bool force) {
     isForced = force;
     if (force) {
         state = newState;
@@ -60,34 +62,45 @@ void Light::forceState(LightState newState, bool force) {
     }
 }
 
-void Light::setPriorityMode(bool enabled) {
+void TrafficLight::setPriorityMode(bool enabled) {
     isPriorityMode = enabled;
     // Adjust timings when priority mode changes
     currentStateDuration = getStateDuration();
 }
 
-float Light::getStateDuration() const {
+float TrafficLight::getStateDuration() const {
     if (isPriorityMode) {
-        return (state == LightState::GREEN) ? 40.0f : 20.0f;  // Longer green in priority
+        // In priority mode, A2 gets longer green, others longer red
+        if (controlledLane == LaneId::AL2_PRIORITY) {
+            return (state == LightState::GREEN) ? 30.0f : 5.0f;  // Priority lane gets more green time
+        } else {
+            return (state == LightState::GREEN) ? 5.0f : 30.0f;  // Others get less green time
+        }
     }
-    return (state == LightState::GREEN) ? 30.0f : 30.0f;  // Equal in normal mode
+
+    // In normal mode, more balanced durations
+    return 15.0f;
 }
 
-float Light::getNextStateDuration() const {
+float TrafficLight::getNextStateDuration() const {
     if (isPriorityMode) {
-        return (nextState == LightState::GREEN) ? 40.0f : 20.0f;
+        if (controlledLane == LaneId::AL2_PRIORITY) {
+            return (nextState == LightState::GREEN) ? 30.0f : 5.0f;
+        } else {
+            return (nextState == LightState::GREEN) ? 5.0f : 30.0f;
+        }
     }
-    return 30.0f;
+    return 15.0f;
 }
 
-void Light::startTransition(LightState newState) {
+void TrafficLight::startTransition(LightState newState) {
     nextState = newState;
     isTransitioning = true;
     transitionProgress = 0.0f;
     stateTimer = 0.0f;
 }
 
-void Light::render(SDL_Renderer* renderer, float x, float y) const {
+void TrafficLight::render(SDL_Renderer* renderer, float x, float y) const {
     // Constants for rendering
     const float LIGHT_SIZE = 30.0f;
     const float HOUSING_PADDING = 5.0f;
@@ -148,4 +161,21 @@ void Light::render(SDL_Renderer* renderer, float x, float y) const {
     SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
     SDL_RenderRect(renderer, &redLight);
     SDL_RenderRect(renderer, &greenLight);
+
+    // Add priority indicator if this is the priority lane
+    if (controlledLane == LaneId::AL2_PRIORITY) {
+        SDL_FRect priorityIndicator = {
+            x + LIGHT_SIZE + 5.0f,
+            y,
+            10.0f,
+            10.0f
+        };
+
+        // Pulsing effect for priority mode
+        uint8_t alpha = isPriorityMode ?
+            static_cast<uint8_t>(128 + 127 * sinf(SDL_GetTicks() / 500.0f)) : 100;
+
+        SDL_SetRenderDrawColor(renderer, 255, 165, 0, alpha);
+        SDL_RenderFillRect(renderer, &priorityIndicator);
+    }
 }
