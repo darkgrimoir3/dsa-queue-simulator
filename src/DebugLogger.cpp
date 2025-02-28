@@ -1,4 +1,4 @@
-#include "Headers/DebugLogger.h"
+#include "../inc/Headers/DebugLogger.h"
 #include <iostream>
 #include <fstream>
 #include <chrono>
