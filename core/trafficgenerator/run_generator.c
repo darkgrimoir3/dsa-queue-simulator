@@ -3,9 +3,9 @@
 #include <time.h>
 #include <windows.h> // For Sleep() on Windows
 
-#include "generator.h"
+#include "trafficgenerator.h"
 #include "vehicle.h"
-#include "lane.h"
+#include "trafficlane.h"
 
 // Define the list of lanes
 const char *lanes[] = {"AL2", "BL2", "CL2", "DL2"};

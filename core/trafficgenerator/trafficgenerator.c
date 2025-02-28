@@ -1,5 +1,5 @@
 #include "generator.h"
-#include "lane.h"
+#include "trafficlane.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>

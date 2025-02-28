@@ -1,7 +1,7 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
-#include "lane.h"
+#include "trafficlane.h"
 
 void initSimulation();
 void runSimulation();
