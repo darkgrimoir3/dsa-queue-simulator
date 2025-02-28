@@ -1,5 +1,9 @@
-🚦 Traffic Light Management System
-
+# 🚦 Traffic Light Management System
+<div align="center">
+  <hr style="width: 75%">
+  <h3>COMP202 Data Structures and Algorithms Project</h3>
+  <hr style="width: 75%">
+</div>
 
 Hey there! Welcome to my traffic light simulator project. This is my solution for the COMP202 Data Structures and Algorithms assignment where I've built a queue-based system to manage traffic at a busy intersection.
 
