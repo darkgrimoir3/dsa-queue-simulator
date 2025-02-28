@@ -7,6 +7,8 @@
 
 Hey there! Welcome to my traffic light simulator project. This is my solution for the COMP202 Data Structures and Algorithms assignment where I've built a queue-based system to manage traffic at a busy intersection.
 
+![Simulator GIF](gif/simulator.gif)
+
 <hr style="width: 40%"><h3>🚗 What's This All About?</h3><hr style="width: 40%">
 
 Imagine a busy intersection where four major roads meet. Cars are coming from all directions, and we need a smart system to control the traffic lights. That's exactly what this project does!
