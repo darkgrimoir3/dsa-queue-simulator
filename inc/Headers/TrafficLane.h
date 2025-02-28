@@ -1,24 +1,36 @@
-// TrafficLane.h
-#pragma once
-#include "Vehicle.h"
-#include "utils/Queue.h"
-#include <memory>
+
+#ifndef TRAFFIC_LANE_H
+#define TRAFFIC_LANE_H
+#include <vector>
 #include <string>
+#include "Headers/Vehicle.h"
+#include "Headers/Queue.h"
 
 class TrafficLane {
-private:
-    LaneId id;
-    Queue<std::shared_ptr<Vehicle>> vehicleQueue;
-    bool isPriority;
-    std::string dataFile;
 public:
-    TrafficLane(LaneId id, bool isPriority);
-    void addVehicle(std::shared_ptr<Vehicle> vehicle);
-    std::shared_ptr<Vehicle> removeVehicle();
-    Direction getVehicleDirection(size_t index) const;  // Add this method
-    size_t getQueueSize() const;
+    TrafficLane(char laneId, int laneNumber);
+    ~TrafficLane();
+    // Queue operations
+    void enqueue(Vehicle* vehicle);
+    Vehicle* dequeue();
+    Vehicle* peek() const;
+    bool isEmpty() const;
+    int getVehicleCount() const;
+    // Priority related operations
+    int getPriority() const;
+    void updatePriority();
     bool isPriorityLane() const;
-    LaneId getId() const;
-    const std::string& getDataFile() const;
-    void update();
+    // Lane identification
+    char getLaneId() const;
+    int getLaneNumber() const;
+    std::string getName() const;
+    // For iteration through vehicles (for rendering)
+    const std::vector<Vehicle*>& getVehicles() const;
+private:
+    char laneId;               // A, B, C, or D
+    int laneNumber;            // 1, 2, or 3
+    bool isPriority;           // Is this a priority lane (AL2)
+    int priority;              // Current priority (higher means served first)
+    Queue<Vehicle*> vehicleQueue; // Queue for vehicles in the lane
 };
+#endif // TRAFFIC_LANE_H
