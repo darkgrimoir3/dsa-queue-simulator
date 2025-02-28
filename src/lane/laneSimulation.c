@@ -4,110 +4,110 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// Display configuration
 #define WINDOW_WIDTH 900
 #define WINDOW_HEIGHT 900
-#define ROAD_WIDTH 180  // Each road's total width (3 lanes x 60 width)
-#define LANE_WIDTH 60   // Width of each lane
-#define VEHICLE_SIZE 30 // Vehicle size (width and height)
+#define ROAD_WIDTH 180  // Width for all three lanes combined
+#define LANE_WIDTH 60   // Individual lane width
+#define VEHICLE_SIZE 30 // Size of vehicle representation
 
-// Debug function to visualize lane numbers
-void DrawLaneLabels(SDL_Renderer *renderer)
+// Function to show lane identifiers for debugging purposes
+void RenderLaneIdentifiers(SDL_Renderer *renderer)
 {
-    // Create a font-like rendering for lane labels
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    // Set text color to dark
+    SDL_SetRenderDrawColor(renderer, 20, 20, 20, 255);
 
-    // Road A labels (top vertical road)
-    for (int i = 0; i < 3; i++)
+    // North road (A) identifiers
+    for (int laneIdx = 0; laneIdx < 3; laneIdx++)
     {
-        char label[3] = {'A', 'L', '1' + i};
-        int x = WINDOW_WIDTH / 2 - ROAD_WIDTH / 2 + i * LANE_WIDTH + LANE_WIDTH / 2 - 10;
-        int y = 20;
+        char laneId[3] = {'A', 'L', '1' + laneIdx};
+        int xPos = WINDOW_WIDTH / 2 - ROAD_WIDTH / 2 + laneIdx * LANE_WIDTH + LANE_WIDTH / 2 - 10;
+        int yPos = 20;
 
-        // Draw a small black box to represent text
-        SDL_FRect textRect = {x, y, 20, 15};
-        SDL_RenderFillRect(renderer, &textRect);
+        // Create text placeholder rectangle
+        SDL_FRect textBox = {xPos, yPos, 20, 15};
+        SDL_RenderFillRect(renderer, &textBox);
     }
 
-    // Road B labels (right horizontal road)
-    for (int i = 0; i < 3; i++)
+    // East road (B) identifiers
+    for (int laneIdx = 0; laneIdx < 3; laneIdx++)
     {
-        int x = WINDOW_WIDTH - 40;
-        int y = WINDOW_HEIGHT / 2 - ROAD_WIDTH / 2 + i * LANE_WIDTH + LANE_WIDTH / 2 - 10;
+        int xPos = WINDOW_WIDTH - 40;
+        int yPos = WINDOW_HEIGHT / 2 - ROAD_WIDTH / 2 + laneIdx * LANE_WIDTH + LANE_WIDTH / 2 - 10;
 
-        SDL_FRect textRect = {x, y, 20, 15};
-        SDL_RenderFillRect(renderer, &textRect);
+        SDL_FRect textBox = {xPos, yPos, 20, 15};
+        SDL_RenderFillRect(renderer, &textBox);
     }
 
-    // Road C labels (bottom vertical road)
-    for (int i = 0; i < 3; i++)
+    // South road (C) identifiers
+    for (int laneIdx = 0; laneIdx < 3; laneIdx++)
     {
-        int x = WINDOW_WIDTH / 2 - ROAD_WIDTH / 2 + i * LANE_WIDTH + LANE_WIDTH / 2 - 10;
-        int y = WINDOW_HEIGHT - 40;
+        int xPos = WINDOW_WIDTH / 2 - ROAD_WIDTH / 2 + laneIdx * LANE_WIDTH + LANE_WIDTH / 2 - 10;
+        int yPos = WINDOW_HEIGHT - 40;
 
-        SDL_FRect textRect = {x, y, 20, 15};
-        SDL_RenderFillRect(renderer, &textRect);
+        SDL_FRect textBox = {xPos, yPos, 20, 15};
+        SDL_RenderFillRect(renderer, &textBox);
     }
 
-    // Road D labels (left horizontal road)
-    for (int i = 0; i < 3; i++)
+    // West road (D) identifiers
+    for (int laneIdx = 0; laneIdx < 3; laneIdx++)
     {
-        int x = 20;
-        int y = WINDOW_HEIGHT / 2 - ROAD_WIDTH / 2 + i * LANE_WIDTH + LANE_WIDTH / 2 - 10;
+        int xPos = 20;
+        int yPos = WINDOW_HEIGHT / 2 - ROAD_WIDTH / 2 + laneIdx * LANE_WIDTH + LANE_WIDTH / 2 - 10;
 
-        SDL_FRect textRect = {x, y, 20, 15};
-        SDL_RenderFillRect(renderer, &textRect);
+        SDL_FRect textBox = {xPos, yPos, 20, 15};
+        SDL_RenderFillRect(renderer, &textBox);
     }
 }
 
-void DrawRoad(SDL_Renderer *renderer)
+void RenderRoadSystem(SDL_Renderer *renderer)
 {
-    // Set background color (green for grass/terrain)
-    SDL_SetRenderDrawColor(renderer, 50, 50, 50, 60);
-    SDL_FRect background = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
-    SDL_RenderFillRect(renderer, &background);
+    // Create background (darker asphalt appearance)
+    SDL_SetRenderDrawColor(renderer, 40, 42, 54, 60);
+    SDL_FRect backgroundArea = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
+    SDL_RenderFillRect(renderer, &backgroundArea);
 
-    // Gray color for roads
-    SDL_SetRenderDrawColor(renderer, 70, 70, 70, 255);
+    // Road surface color (lighter asphalt)
+    SDL_SetRenderDrawColor(renderer, 80, 82, 94, 255);
 
-    // Vertical roads (A - Top, C - Bottom)
-    SDL_FRect roadA = {WINDOW_WIDTH / 2 - ROAD_WIDTH / 2, 0, ROAD_WIDTH, WINDOW_HEIGHT / 2};
-    SDL_FRect roadC = {WINDOW_WIDTH / 2 - ROAD_WIDTH / 2, WINDOW_HEIGHT / 2, ROAD_WIDTH, WINDOW_HEIGHT / 2};
+    // Define the four road segments
+    SDL_FRect northRoad = {WINDOW_WIDTH / 2 - ROAD_WIDTH / 2, 0, ROAD_WIDTH, WINDOW_HEIGHT / 2};
+    SDL_FRect southRoad = {WINDOW_WIDTH / 2 - ROAD_WIDTH / 2, WINDOW_HEIGHT / 2, ROAD_WIDTH, WINDOW_HEIGHT / 2};
+    SDL_FRect eastRoad = {WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 - ROAD_WIDTH / 2, WINDOW_WIDTH / 2, ROAD_WIDTH};
+    SDL_FRect westRoad = {0, WINDOW_HEIGHT / 2 - ROAD_WIDTH / 2, WINDOW_WIDTH / 2, ROAD_WIDTH};
 
-    // Horizontal roads (B - Right, D - Left)
-    SDL_FRect roadB = {WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 - ROAD_WIDTH / 2, WINDOW_WIDTH / 2, ROAD_WIDTH};
-    SDL_FRect roadD = {0, WINDOW_HEIGHT / 2 - ROAD_WIDTH / 2, WINDOW_WIDTH / 2, ROAD_WIDTH};
+    // Render road surfaces
+    SDL_RenderFillRect(renderer, &northRoad);
+    SDL_RenderFillRect(renderer, &eastRoad);
+    SDL_RenderFillRect(renderer, &southRoad);
+    SDL_RenderFillRect(renderer, &westRoad);
 
-    // Draw roads
-    SDL_RenderFillRect(renderer, &roadA);
-    SDL_RenderFillRect(renderer, &roadB);
-    SDL_RenderFillRect(renderer, &roadC);
-    SDL_RenderFillRect(renderer, &roadD);
+    // Lane divider markings (bright orange)
+    SDL_SetRenderDrawColor(renderer, 255, 165, 0, 255);
 
-    // Draw lane dividers (White lines for lanes)
-    SDL_SetRenderDrawColor(renderer, 255, 250, 0, 255);
+    // Dash pattern configuration
+    int dashSegment = 15, dashGap = 15;
 
-    int dashLength = 15, gapLength = 15;
-
-    // Vertical lane dividers (A & C) - Now drawing two lines for three lanes
-    for (int i = 1; i <= 2; i++)
+    // Vertical dividers (north-south roads)
+    for (int divider = 1; divider <= 2; divider++)
     {
-        int x = WINDOW_WIDTH / 2 - ROAD_WIDTH / 2 + i * LANE_WIDTH;
-        for (int y = 0; y < WINDOW_HEIGHT; y += dashLength + gapLength)
+        int xPos = WINDOW_WIDTH / 2 - ROAD_WIDTH / 2 + divider * LANE_WIDTH;
+        for (int yPos = 0; yPos < WINDOW_HEIGHT; yPos += dashSegment + dashGap)
         {
-            SDL_RenderLine(renderer, x, y, x, y + dashLength);
+            SDL_RenderLine(renderer, xPos, yPos, xPos, yPos + dashSegment);
         }
     }
 
-    // Horizontal lane dividers (B & D) - Now drawing two lines for three lanes
-    for (int i = 1; i <= 2; i++)
+    // Horizontal dividers (east-west roads)
+    for (int divider = 1; divider <= 2; divider++)
     {
-        int y = WINDOW_HEIGHT / 2 - ROAD_WIDTH / 2 + i * LANE_WIDTH;
-        for (int x = 0; x < WINDOW_WIDTH; x += dashLength + gapLength)
+        int yPos = WINDOW_HEIGHT / 2 - ROAD_WIDTH / 2 + divider * LANE_WIDTH;
+        for (int xPos = 0; xPos < WINDOW_WIDTH; xPos += dashSegment + dashGap)
         {
-            SDL_RenderLine(renderer, x, y, x + dashLength, y);
+            SDL_RenderLine(renderer, xPos, yPos, xPos + dashSegment, yPos);
         }
     }
 
-    // Optionally draw lane labels for debugging
-    // DrawLaneLabels(renderer);
+    // Uncomment to show lane identifiers for development
+    // RenderLaneIdentifiers(renderer);
 }

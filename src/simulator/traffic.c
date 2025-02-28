@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "animation.h"
+#include "visualisation.h"
 #include <time.h>
 
 #define WINDOW_WIDTH 900

@@ -2,7 +2,7 @@
 #define GENERATOR_H
 
 #include "vehicle.h"
-#include "lane.h"
+#include "trafficlane.h"
 
 // Function declarations
 void generateVehicle(Lane *lane, int *vehicleIdCounter);

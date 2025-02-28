@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "lane.h"
-#include "generator.h"
+#include "trafficlane.h"
+#include "trafficgenerator.h"
 
 int main()
 {

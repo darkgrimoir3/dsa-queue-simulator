@@ -4,7 +4,7 @@
 #include <string.h>
 #include <vehicleQueue.h>
 #include "road.h"
-#include "animation.h"
+#include "visualisation.h"
 
 #define WIDTH 900
 #define HEIGHT 900
