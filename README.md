@@ -7,7 +7,7 @@
 
 Hey there! Welcome to my traffic light simulator project. This is my solution for the COMP202 Data Structures and Algorithms assignment where I've built a queue-based system to manage traffic at a busy intersection.
 
-<hr style="width: 40%">🚗 What's This All About?</h2><hr style="width: 40%">
+<hr style="width: 40%"><h3>🚗 What's This All About?</h3><hr style="width: 40%">
 
 Imagine a busy intersection where four major roads meet. Cars are coming from all directions, and we need a smart system to control the traffic lights. That's exactly what this project does!
 
@@ -16,14 +16,15 @@ The system handles two main scenarios:
 Regular traffic flow: Where we try to serve vehicles equally from all lanes
 Rush hour situations: When one road gets backed up with more than 10 vehicles, it gets priority until the traffic eases
 
-</h2>✨ Key Features</h2>
+<hr style="width: 40%"><h3>✨ Key Features</h3><hr style="width: 40%">
 
 Uses queues to model real-world traffic (putting those DSA lessons to work!)
 Visual simulation of vehicles moving through the junction
 Smart handling of priority lanes when traffic builds up
 Traffic light coordination to prevent gridlock
 
-</h2>🛣️ The Road Layout</h2>
+<hr style="width: 40%"><h3>🛣️ The Road Layout</h3><hr style="width: 40%">
+
 Each of the four roads (A, B, C, D) has three lanes:
 
 An incoming lane (like AL1)
@@ -34,7 +35,7 @@ The lane labeled AL2 is our special priority lane that gets preferential treatme
 
 
 
-</h2>📁 Project Organization</h2>
+<hr style="width: 40%"><h3>📁 Project Organization</h3><hr style="width: 40%">
 
 ├── data/                         # Where all the traffic data lives
 ├── base/                      # Header files
@@ -50,7 +51,7 @@ The lane labeled AL2 is our special priority lane that gets preferential treatme
 
 
 
-</h2>🧠 How It Works</h2>
+<hr style="width: 40%"><h3>🧠 How It Works</h3><hr style="width: 40%">
 The system uses queues (a perfect application for FIFO structures!) to manage vehicles at the intersection:
 
 1. Vehicle Generation: The generator creates vehicles and assigns them to lanes
@@ -62,7 +63,7 @@ Priority mode: When AL2 has >10 vehicles, it gets priority service until it drop
 
 3. Traffic Lights: Coordinate red/green states to keep traffic flowing and prevent deadlocks
 
-</h2>🚀 Getting Started</h2>
+<hr style="width: 40%"><h3>🚀 Getting Started</h3><hr style="width: 40%">
 
 1.Clone this repo:
 
@@ -77,7 +78,7 @@ gcc main.c src/generator/generator.c src/lane/lane.c src/vehicle/vehicle.c -Iinc
 
 4.Watch the traffic flow and see how the queue-based system handles different scenarios!
 
-</h2>🙏 Acknowledgments</h2>
+<hr style="width: 40%"><h3>🙏 Acknowledgments</h3><hr style="width: 40%">
 
 My DSA professor for the challenging assignment
 The SDL library for making visualization possible
