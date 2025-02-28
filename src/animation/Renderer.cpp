@@ -1,4 +1,3 @@
-
 #include "Animation/Renderer.h"
 #include "Headers/TrafficLane.h"
 #include "Headers/Vehicle.h"
