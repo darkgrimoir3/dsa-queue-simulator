@@ -37,22 +37,6 @@ The lane labeled AL2 is our special priority lane that gets preferential treatme
 
 
 
-<hr style="width: 40%"><h3>📁 Project Organization</h3><hr style="width: 40%">
-
-├── data/                         # Where all the traffic data lives
-├── base/                      # Header files
-│   ├── SDL3/                     # Graphics library headers
-│   ├── visualisation.h, trafficlane.h, etc. # Various component headers
-├── core/                          # Where the magic happens
-│   ├── trafficgenerator/                # Creates vehicles for our simulation
-│   ├── trafficlane/                     # Manages lane operations
-│   ├── simulator/                # Runs the actual simulation
-│   └── vehicle/                  # Defines vehicle behavior
-├── main.c                        # The entry point
-└── README.md                     # You are here! 👋
-
-
-
 <hr style="width: 40%"><h3>🧠 How It Works</h3><hr style="width: 40%">
 The system uses queues (a perfect application for FIFO structures!) to manage vehicles at the intersection:
 
@@ -65,20 +49,7 @@ Priority mode: When AL2 has >10 vehicles, it gets priority service until it drop
 
 3. Traffic Lights: Coordinate red/green states to keep traffic flowing and prevent deadlocks
 
-<hr style="width: 40%"><h3>🚀 Getting Started</h3><hr style="width: 40%">
 
-1.Clone this repo:
-
-git clone https://github.com/yourusername/dsa-queue-simulator.git
-cd dsa-queue-simulator
-
-2.Build the project:
-gcc main.c src/generator/generator.c src/lane/lane.c src/vehicle/vehicle.c -Iinclude -o simulator
-
-3.Run it:
-./simulator
-
-4.Watch the traffic flow and see how the queue-based system handles different scenarios!
 
 <hr style="width: 40%"><h3>🙏 Acknowledgments</h3><hr style="width: 40%">
 
