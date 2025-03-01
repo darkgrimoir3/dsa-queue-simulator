@@ -46,13 +46,30 @@ The system uses queues (a perfect application for FIFO structures!) to manage ve
 Normal mode: Serve vehicles from all lanes fairly
 Priority mode: When AL2 has >10 vehicles, it gets priority service until it drops below 5
 
-
 3. Traffic Lights: Coordinate red/green states to keep traffic flowing and prevent deadlocks
+
+<hr style="width: 40%"><h3>steps to run </h3><hr style="width: 40%">
+
+## Clone the Repository
+
+```sh 
+git clone https://github.com/darkgrimoir3/dsa-queue-simulator.git
+```
+
+
+## open terminal
+```sh 
+make(ensure cygwin/mingw is installed loccaly for it to work)
+```
+then
+```sh 
+./simulator(including ./generator in another)
+```
 
 
 
 <hr style="width: 40%"><h3>🙏 Acknowledgments</h3><hr style="width: 40%">
 
-My DSA professor for the challenging assignment
-The SDL library for making visualization possible
-Coffee ☕ - the true hero behind all coding projects
+-My DSA professor for the challenging assignment
+-The SDL library for making visualization possible
+-Coffee ☕ - the true hero behind all coding projects
